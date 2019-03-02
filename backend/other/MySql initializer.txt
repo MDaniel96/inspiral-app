@@ -1,0 +1,13 @@
+/*CREATE TABLE trainer (
+	Id int not null auto_increment,
+	Name VARCHAR(50) default null,
+    Email VARCHAR(30) default null unique,
+    Password VARCHAR(20) default null,
+    Image Blob default null,
+    primary key (Id)
+) auto_increment=0;  
+
+
+insert into trainer (Name, Email, Password) values ("Morvai Dani", "morvai.daniel96@gmail.com", "Danivok11"); 
+
+insert into trainer (Name, Email, Password) values ("Morvai Ákos", "danimorvai@freemail.hu", "Akosvok11"); */
