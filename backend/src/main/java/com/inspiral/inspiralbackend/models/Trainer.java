@@ -25,6 +25,22 @@ public class Trainer {
     private byte[] image;
 
 
+    public Trainer() {}
+
+    public Trainer(String name, String email, String password, byte[] image) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.image = image;
+    }
+
+    public void updateWithNotNull(Trainer other) {
+        if (other.name != null) this.name = other.name;
+        if (other.email != null) this.email = other.email;
+        if (other.password != null) this.password = other.password;
+        if (other.image != null) this.image = other.image;
+    }
+
     public Integer getId() { return id; }
 
     public void setId(Integer id) { this.id = id; }

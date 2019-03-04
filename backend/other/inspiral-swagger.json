@@ -91,7 +91,7 @@
         }
       }
     },
-    "/trainer/logout": {
+    "/admin/trainer/logout": {
       "post": {
         "tags": [
           "trainer"
@@ -112,7 +112,7 @@
         }
       }
     },
-    "/trainer": {
+    "/admin/trainer": {
       "get": {
         "tags": [
           "trainer"
@@ -186,7 +186,7 @@
         }
       }
     },
-    "/poll": {
+    "/admin/poll": {
       "post": {
         "tags": [
           "poll"
@@ -257,7 +257,7 @@
         }
       }
     },
-    "/poll/{pollId}": {
+    "/admin/poll/{pollId}": {
       "put": {
         "tags": [
           "poll"
@@ -344,7 +344,7 @@
         }
       }
     },
-    "/poll/{pollId}/question/{questionId}": {
+    "/admin/poll/{pollId}/question/{questionId}": {
       "delete": {
         "tags": [
           "poll"
@@ -392,7 +392,7 @@
         }
       }
     },
-    "/poll/{pollId}/question": {
+    "/admin/poll/{pollId}/question": {
       "post": {
         "tags": [
           "poll"
@@ -439,7 +439,9 @@
             "description": "Poll not found"
           }
         }
-      },
+      }
+    },
+    "/poll/{pollId}/question": {
       "get": {
         "tags": [
           "poll"
@@ -561,7 +563,7 @@
         }
       }
     },
-    "/entry": {
+    "/admin/entry": {
       "post": {
         "tags": [
           "entry"
@@ -632,7 +634,7 @@
         }
       }
     },
-    "/entry/{entryId}": {
+    "/admin/entry/{entryId}": {
       "put": {
         "tags": [
           "entry"
@@ -719,7 +721,7 @@
         }
       }
     },
-    "/entry/{entryId}/comment/{commentId}": {
+    "/admin/entry/{entryId}/comment/{commentId}": {
       "delete": {
         "tags": [
           "entry"
@@ -876,7 +878,7 @@
         }
       }
     },
-    "/training": {
+    "/admin/training": {
       "post": {
         "tags": [
           "training"
@@ -915,7 +917,7 @@
       },
       "get": {
         "tags": [
-          "entry"
+          "training"
         ],
         "summary": "Get trainer's trainings",
         "description": "",
@@ -947,7 +949,7 @@
         }
       }
     },
-    "/training/{trainingId}": {
+    "/admin/training/{trainingId}": {
       "put": {
         "tags": [
           "training"
