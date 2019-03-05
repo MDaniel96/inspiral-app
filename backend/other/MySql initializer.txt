@@ -1,13 +1,53 @@
-/*CREATE TABLE trainer (
-	Id int not null auto_increment,
-	Name VARCHAR(50) default null,
-    Email VARCHAR(30) default null unique,
-    Password VARCHAR(20) default null,
-    Image Blob default null,
-    primary key (Id)
+Use inspiralDb; 
+SET GLOBAL time_zone = '+0:00';
+CREATE TABLE trainer (
+	id int not null auto_increment,
+	name VARCHAR(50) default null,
+    email VARCHAR(30) default null unique,
+    password VARCHAR(20) default null,
+    image Blob default null,
+    primary key (id)
 ) auto_increment=0;  
 
 
-insert into trainer (Name, Email, Password) values ("Morvai Dani", "morvai.daniel96@gmail.com", "Danivok11"); 
+insert into trainer (name, email, password) values ("Morvai Dani", "morvai.daniel96@gmail.com", "Danivok11"); 
 
-insert into trainer (Name, Email, Password) values ("Morvai Ákos", "danimorvai@freemail.hu", "Akosvok11"); */
+insert into trainer (name, email, password) values ("Morvai Ákos", "danimorvai@freemail.hu", "Akosvok11"); 
+
+
+CREATE TABLE poll (
+	id int not null auto_increment,
+	trainerid int not null, 
+    trainername VARCHAR(50) default null,
+    title VARCHAR(40) default null,
+    date date default null,
+    primary key (id),
+    foreign key (trainerid) references trainer(id)
+) auto_increment=0; 
+
+insert into poll (trainerid, trainername, title, date) values (1, 'Morvai Dani', 'Programozasi keroiv', '2019-03-04');
+
+insert into poll (trainerid, trainername, title, date) values (2, 'Morvai Ákos', 'Vivas keroiv', '2019-03-04');
+
+insert into poll (trainerid, trainername, title, date) values (2, 'Morvai Ákos', 'Focizas teszt', '2015-02-05');
+
+
+
+CREATE TABLE question (
+	id int not null auto_increment,
+	pollid int not null, 
+    content VARCHAR(200) default null,
+    primary key (id),
+    foreign key (pollid) references poll(id)
+) auto_increment=0; 
+
+insert into question (pollid, content) values (1, 'Mi az a constructor?');
+insert into question (pollid, content) values (1, 'Mi az az orokles?');
+insert into question (pollid, content) values (1, 'Mi az objektum?');
+
+insert into question (pollid, content) values (2, 'Mi az a parad?');
+insert into question (pollid, content) values (2, 'Mi az az asszo?');
+insert into question (pollid, content) values (2, 'Tor vagy kard?');
+
+								
+                                                                

@@ -309,7 +309,7 @@
         "tags": [
           "poll"
         ],
-        "summary": "Delete trainer's poll",
+        "summary": "Delete trainer's poll (with questions)",
         "description": "",
         "operationId": "deleteTrainersPoll",
         "consumes": [
@@ -344,12 +344,12 @@
         }
       }
     },
-    "/admin/poll/{pollId}/question/{questionId}": {
+    "/admin/poll/question/{questionId}": {
       "delete": {
         "tags": [
           "poll"
         ],
-        "summary": "Delete poll's question",
+        "summary": "Delete question",
         "description": "",
         "operationId": "deletePollsQuestion",
         "consumes": [
@@ -366,14 +366,6 @@
             "type": "string"
           },
           {
-            "name": "pollId",
-            "in": "path",
-            "description": "ID of poll",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
             "name": "questionId",
             "in": "path",
             "description": "ID of question to be deleted",
@@ -387,7 +379,7 @@
             "description": "Delete OK"
           },
           "404": {
-            "description": "Poll or question not found"
+            "description": "Question not found"
           }
         }
       }
