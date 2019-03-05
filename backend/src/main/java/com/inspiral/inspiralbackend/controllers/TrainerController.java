@@ -5,6 +5,7 @@ import com.inspiral.inspiralbackend.models.Trainer;
 import com.inspiral.inspiralbackend.repositories.TrainerRepository;
 import com.inspiral.inspiralbackend.security.JwtGenerator;
 import com.inspiral.inspiralbackend.security.JwtValidator;
+import com.inspiral.inspiralbackend.security.TrainerIdentifier;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
@@ -25,11 +26,11 @@ public class TrainerController {
     private TrainerRepository trainerRepository;
 
     private JwtGenerator jwtGenerator;
-    private JwtValidator jwtValidator;
+    private TrainerIdentifier trainerIdentifier;
 
-    public TrainerController(JwtGenerator jwtGenerator, JwtValidator jwtValidator) {
+    public TrainerController(JwtGenerator jwtGenerator, TrainerIdentifier trainerIdentifier) {
         this.jwtGenerator = jwtGenerator;
-        this.jwtValidator = jwtValidator;
+        this.trainerIdentifier = trainerIdentifier;
     }
 
     @PostMapping("/trainer/login")
@@ -47,11 +48,7 @@ public class TrainerController {
     @GetMapping("/admin/trainer")
     public @ResponseBody ResponseEntity<Object> getLoggedinTrainer(@RequestHeader("Authorization") String token) {
 
-        Integer id = jwtValidator.validate(token.substring(7)).getId();
-
-        Trainer trainer = trainerRepository.findTrainerById(id);
-        if (trainer == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trainer not found!");
+        Trainer trainer = trainerIdentifier.identify(token);
 
         return ResponseEntity.status(HttpStatus.OK).body(trainer);
     }
@@ -60,14 +57,10 @@ public class TrainerController {
     @PutMapping("/admin/trainer")
     public @ResponseBody ResponseEntity<Object> updateLoggedinTrainer(@RequestHeader("Authorization") String token, @RequestBody Trainer newTrainer) {
 
-        Integer id = jwtValidator.validate(token.substring(7)).getId();
-
-        Trainer trainer = trainerRepository.findTrainerById(id);
-        if (trainer == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trainer not found!");
+        Trainer trainer = trainerIdentifier.identify(token);
 
         trainer.updateWithNotNull(newTrainer);
-        trainerRepository.updateTrainerById(trainer.getName(), trainer.getEmail(), trainer.getPassword(), trainer.getImage(), id);
+        trainerRepository.updateTrainerById(trainer.getName(), trainer.getEmail(), trainer.getPassword(), trainer.getImage(), trainer.getId());
         return ResponseEntity.status(HttpStatus.OK).body("Update OK");
     }
 

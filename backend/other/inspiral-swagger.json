@@ -543,12 +543,12 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Submitted questions and answers",
+            "description": "Submitted questions",
             "required": true,
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Question"
+                "type": "string"
               }
             }
           }
@@ -1250,9 +1250,6 @@
           "format": "int64"
         },
         "content": {
-          "type": "string"
-        },
-        "answer": {
           "type": "string"
         }
       }
