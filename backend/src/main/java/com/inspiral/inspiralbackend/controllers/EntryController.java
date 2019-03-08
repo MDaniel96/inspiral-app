@@ -1,13 +1,11 @@
 package com.inspiral.inspiralbackend.controllers;
 
 
-import com.inspiral.inspiralbackend.config.MailSender;
 import com.inspiral.inspiralbackend.models.Comment;
 import com.inspiral.inspiralbackend.models.Entry;
 import com.inspiral.inspiralbackend.models.Trainer;
 import com.inspiral.inspiralbackend.repositories.CommentRepository;
 import com.inspiral.inspiralbackend.repositories.EntryRepository;
-import com.inspiral.inspiralbackend.repositories.TrainerRepository;
 import com.inspiral.inspiralbackend.security.TrainerIdentifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,15 +22,11 @@ public class EntryController {
     private EntryRepository entryRepository;
     @Autowired
     private CommentRepository commentRepository;
-    @Autowired
-    private TrainerRepository trainerRepository;
 
     private TrainerIdentifier trainerIdentifier;
-    private MailSender mailSender;
 
-    public EntryController(TrainerIdentifier trainerIdentifier, MailSender mailSender) {
+    public EntryController(TrainerIdentifier trainerIdentifier) {
         this.trainerIdentifier = trainerIdentifier;
-        this.mailSender = mailSender;
     }
 
 

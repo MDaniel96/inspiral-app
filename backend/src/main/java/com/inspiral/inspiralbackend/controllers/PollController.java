@@ -129,7 +129,7 @@ public class PollController {
     @PostMapping("/poll/{pollId}/submit/{email}")
     public @ResponseBody ResponseEntity<Object> submitPoll(@PathVariable(value="pollId") Integer pollId,
                                                            @RequestBody List<String> answers,
-                                                           @PathVariable(value="email") String fromEmail) throws AddressException, MessagingException, IOException {
+                                                           @PathVariable(value="email") String fromEmail) throws MessagingException, IOException {
         Poll poll = pollRepository.getById(pollId);
 
         if (poll == null)
