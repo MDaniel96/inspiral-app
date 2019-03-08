@@ -13,9 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
 import java.io.IOException;
-import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -82,7 +80,7 @@ public class TrainingController {
     public @ResponseBody ResponseEntity<Object> getAllTrainings() {
         return ResponseEntity.status(HttpStatus.OK).body(trainingRepository.findAll());
     }
-    
+
     @PostMapping("/training/{trainingId}/apply/{email}")
     public @ResponseBody ResponseEntity<Object> applyForTraining(@PathVariable(value="trainingId") Integer trainingId,
                                                                  @PathVariable(value="email") String fromEmail) throws MessagingException, IOException {

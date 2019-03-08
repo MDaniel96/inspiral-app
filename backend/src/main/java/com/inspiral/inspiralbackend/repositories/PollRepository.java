@@ -12,6 +12,8 @@ public interface PollRepository extends JpaRepository<Poll, Integer> {
 
     List<Poll> findAllByTrainerid(Integer trainerid);
 
+    List<Object> findAllByTitleContains(String keyword);
+
     Poll getById(Integer id);
     void deleteById(Integer id);
 

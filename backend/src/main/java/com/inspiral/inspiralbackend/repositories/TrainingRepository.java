@@ -10,6 +10,9 @@ public interface TrainingRepository extends JpaRepository<Training, Integer> {
 
     List<Training> findAllByTrainerid(Integer trainerid);
 
+    List<Object> findAllByContentContains(String keyword);
+    List<Object> findAllByTitleContains(String keyword);
+
     Training getById(Integer id);
     void deleteById(Integer id);
 }
