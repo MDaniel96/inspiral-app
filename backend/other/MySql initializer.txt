@@ -49,5 +49,70 @@ insert into question (pollid, content) values (2, 'Mi az a parad?');
 insert into question (pollid, content) values (2, 'Mi az az asszo?');
 insert into question (pollid, content) values (2, 'Tor vagy kard?');
 
+
+
+
+
+CREATE TABLE entry (
+	id int not null auto_increment,
+	trainerid int not null, 
+    trainername VARCHAR(50) default null,
+    title VARCHAR(40) default null,
+    date date default null,
+    content VARCHAR(300) default null,
+    image Blob default null,
+    primary key (id),
+    foreign key (trainerid) references trainer(id)
+) auto_increment=0; 
+
+insert into entry (trainerid, trainername, title, date, content) values (1, 'Morvai Dani', 'Az onbizalomrol', '2019-03-04', 'Az onbizalom nagyon fontos mert... ');
+
+insert into entry (trainerid, trainername, title, date, content) values (1, 'Morvai Dani', 'Az olvasasrol', '2020-05-04', 'Olvasni nagyon kiraly mert... ');
+
+insert into entry (trainerid, trainername, title, date, content) values (2, 'Morvai Ákos', 'A lovakrol', '2011-03-04', 'Alovak szep allatfajtak... ');
+
+
+
+CREATE TABLE comment (
+	id int not null auto_increment,
+	entryid int not null,
+    username VARCHAR(30) default null,
+    content VARCHAR(100) default null,
+    date date default null,
+    primary key (id),
+    foreign key (entryid) references entry(id)
+) auto_increment=0; 
+
+insert into comment (entryid, username, content, date) values(2, 'Kvothe', 'A TNoTW a legjobb konyv ever!', '2021-01-03');
+insert into comment (entryid, username, content, date) values(2, 'Brandon Sanderson', 'Majd 1x kijon a Stormlight4', '2022-02-03');
+insert into comment (entryid, username, content, date) values(3, 'Lomanias_vagyok', 'A lovak nagyon szepek valoban', '2021-01-03');
+insert into comment (entryid, username, content, date) values(3, 'LOvag', 'A lovakon jo ulni', '2021-01-03');
 								
-                                                                
+           
+           
+CREATE TABLE training (
+	id int not null auto_increment,
+	trainerid int not null, 
+    trainername VARCHAR(50) default null,
+    type VARCHAR(20) default null,
+    title VARCHAR(40) default null,
+    content VARCHAR(300) default null,
+    date date default null,
+    lat int default null,
+    lon int default null,
+    primary key (id),
+    foreign key (trainerid) references trainer(id)
+) auto_increment=0; 
+
+
+insert into training (trainerid, trainername, type, title, content, date, lat, lon) 
+		values (1, 'Morvai Dani', 'egyfos', 'A tanulasrol', 'most nincs content', '2019-03-04', 23, 343);
+        
+insert into training (trainerid, trainername, type, title, content, date, lat, lon) 
+		values (2, 'Morvai Ákos', 'tobbfos', 'A vivasrol', 'vavasi a content', '2019-03-04', 234, 01212);
+        
+insert into training (trainerid, trainername, type, title, content, date, lat, lon) 
+		values (2, 'Morvai Ákos', 'egyfos', 'Jo training', 'van content', '2019-03-04', 1234, 234);
+
+
+

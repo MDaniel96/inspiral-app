@@ -713,14 +713,14 @@
         }
       }
     },
-    "/admin/entry/{entryId}/comment/{commentId}": {
+    "/admin/entry/comment/{commentId}": {
       "delete": {
         "tags": [
           "entry"
         ],
-        "summary": "Delete entry's comment",
+        "summary": "Delete comment",
         "description": "",
-        "operationId": "deleteEntrysComment",
+        "operationId": "deleteComment",
         "consumes": [
           "application/json"
         ],
@@ -733,14 +733,6 @@
             "in": "header",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "entryId",
-            "in": "path",
-            "description": "ID of entry",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
           },
           {
             "name": "commentId",
@@ -1269,10 +1261,13 @@
         "content": {
           "type": "string"
         },
+        "date": {
+          "type": "integer"
+        },
         "lat": {
           "type": "number"
         },
-        "long": {
+        "lon": {
           "type": "number"
         }
       }
