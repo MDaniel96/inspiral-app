@@ -33,6 +33,11 @@ public class TrainerController {
         this.trainerIdentifier = trainerIdentifier;
     }
 
+    @GetMapping("*/aaa/*")
+    public String helloWorld() {
+        return "helloOOOOO";
+    }
+
     @PostMapping("/trainer/login")
     public @ResponseBody ResponseEntity<Object> trainerLogin(@RequestBody final JwtTrainer jwtTrainer) {
 

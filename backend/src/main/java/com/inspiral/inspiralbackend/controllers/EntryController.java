@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -97,7 +98,7 @@ public class EntryController {
 
         newComment.setEntryid(entry.getId());
         commentRepository.save(newComment);
-        return ResponseEntity.status(HttpStatus.OK).body("Comment added");
+        return ResponseEntity.status(HttpStatus.OK).body(newComment);
 
     }
 
@@ -115,5 +116,15 @@ public class EntryController {
     @GetMapping("/entry/all")
     public @ResponseBody ResponseEntity<Object> getAllEntries() {
         return ResponseEntity.status(HttpStatus.OK).body(entryRepository.findAll());
+    }
+
+    @GetMapping("/entry/search/{keyword}")
+    public @ResponseBody ResponseEntity<Object> getEntriesByKeyword(@PathVariable(value="keyword") String keyword) {
+        List<Object> result = new ArrayList<>();
+
+        result.addAll(entryRepository.findAllByContentContains(keyword));
+        result.addAll(entryRepository.findAllByTitleContains(keyword));
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }
