@@ -18,12 +18,12 @@ class Sidebar extends React.Component {
         url: "#about"
       },
       {
-        title: "Tréningek",
-        url: "#trainings"
-      },
-      {
         title: "Blog",
         url: "#blog"
+      },
+      {
+        title: "Tréningek",
+        url: "#trainings"
       },
       {
         title: "Kapcsolat",

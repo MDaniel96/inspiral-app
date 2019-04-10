@@ -28,7 +28,7 @@ const ServicesOffered = [
 ];
 const ServicesSections = () => (
   <ScrollableAnchor id="services">
-    <section className="content-section bg-primary text-white text-center">
+    <section className="content-section bg-secondary text-white text-center">
       <div className="container">
         <div className="content-section-heading">
           <h3 className="text-secondary mb-0">Services</h3>

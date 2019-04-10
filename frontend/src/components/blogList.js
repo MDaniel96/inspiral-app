@@ -2,11 +2,21 @@ import React from "react";
 import ScrollableAnchor from "react-scrollable-anchor";
 import axios from 'axios';
 import Entry from './entry';
-import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
-import { CustomInput, Form, FormGroup, Label, Input, FieldGroup } from 'reactstrap';
+import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput } from 'mdbreact';
+import { CustomInput, Form, FormGroup, Label } from 'reactstrap';
 
 import Searchbar from "./searchbar";
 
+
+var SpeechRecognition = (
+  window.SpeechRecognition ||
+  window.webkitSpeechRecognition
+);
+const recognition = new SpeechRecognition();
+
+recognition.continous = true;
+recognition.interimResults = true;
+recognition.lang = 'hu';
 
 class BlogListSection extends React.Component {
 
@@ -18,6 +28,8 @@ class BlogListSection extends React.Component {
       blogCount: 4,
       isModalOpen: false,
       file: '',
+      language: 'hu',
+      listening: false,
     }
 
     this.paginate = this.paginate.bind(this);
@@ -27,6 +39,9 @@ class BlogListSection extends React.Component {
     this.onFileChange = this.onFileChange.bind(this);
     this.onDeleteEntry = this.onDeleteEntry.bind(this);
     this.searchEntry = this.searchEntry.bind(this);
+    this.toggleLanguage = this.toggleLanguage.bind(this);
+    this.toggleListening = this.toggleListening.bind(this);
+    this.handleListen = this.handleListen.bind(this);
 
     this.titleInput = React.createRef();
     this.contentInput = React.createRef();
@@ -64,7 +79,7 @@ class BlogListSection extends React.Component {
 
   moreBlogs() {
     this.setState({
-      blogCount: this.state.blogCount + 4
+      blogCount: this.state.blogCount + 2
     });
   }
 
@@ -128,6 +143,48 @@ class BlogListSection extends React.Component {
     } 
   }
 
+  toggleLanguage(e) {
+    e.preventDefault();
+    let newLang;
+    this.state.language === 'hu' ? newLang = 'en' : newLang = 'hu';
+    recognition.lang = newLang;
+    this.setState({
+      language: newLang
+    });
+  }
+
+  toggleListening(e) {
+    e.preventDefault();
+    this.setState({
+      listening: !this.state.listening
+    }, this.handleListen)
+  }
+
+  handleListen() {
+    if (this.state.listening) {
+        recognition.start();
+        recognition.onend = () => {
+            if (this.state.listening)
+                recognition.start();
+        }
+    } else {
+        recognition.stop();
+
+    }
+
+
+    let finalTranscript = '';
+    recognition.onresult = event => {
+        let interimTranscript = '';
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+            const transcript = event.results[i][0].transcript;
+            if (event.results[i].isFinal) finalTranscript += transcript + ' ';
+            else interimTranscript += transcript;
+        }
+        this.contentInput.current.value = finalTranscript + interimTranscript;
+    }
+  } 
 
   render() {
     return (
@@ -179,11 +236,21 @@ class BlogListSection extends React.Component {
                 <Form>
                   <FormGroup>
                     <Label for="title">Cím</Label>
-                    <input ref={this.titleInput} className="lead form-control" type="text" name="title" id="title" />
+                      <input ref={this.titleInput} className="lead form-control" type="text" name="title" id="title" />
                   </FormGroup>
                   <FormGroup>
                     <label for="content">Tartalom</label>
-                    <textarea ref={this.contentInput} className="lead form-control" type="text" name="content" id="content"/>    
+                    <textarea  rows="7" ref={this.contentInput} className="lead form-control" type="text" name="content" id="content"/>
+                    {
+                      this.state.listening ? (
+                        <div>
+                          <a onClick={this.toggleListening} className="btn btn-danger btn-sm fadeIn">Stop</a>
+                          <a onClick={this.toggleLanguage} className="btn btn-secondary btn-sm fadeIn">{this.state.language}</a>
+                        </div>
+                      ) : (        
+                        <a onClick={this.toggleListening} className="btn btn-info btn-sm fadeIn">Beszédfelismerés</a>
+                      )
+                    }
                   </FormGroup>
                   <FormGroup>
                     <Label for="picbrowser">Kép tallózás</Label>

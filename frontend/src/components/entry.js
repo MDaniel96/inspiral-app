@@ -108,6 +108,7 @@ class Entry extends React.Component {
                 </span> 
                 <img className="img-fluid animated fadeIn" src={`data:image/jpeg;base64,${this.props.entry.image}`} alt="" /> 
                 </div> 
+                
 
 
                 <MDBContainer>

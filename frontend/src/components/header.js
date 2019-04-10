@@ -13,6 +13,7 @@ import FooterSection from "../components/footer";
 import ScrollToTop from "../components/scrollToTop";
 
 import VideoImput from './VideoImput';
+import EventListSection from './eventList';
 
 class Header extends React.Component {
 
@@ -189,7 +190,10 @@ class Header extends React.Component {
         <BlogListSection
           token={this.state.token}
         /> 
-        {/* <CallToAction /> */}
+        <ServicesSections/>
+        <EventListSection
+          token={this.state.token}
+        />
         <MapSection />
         <FooterSection />
         <ScrollToTop />
